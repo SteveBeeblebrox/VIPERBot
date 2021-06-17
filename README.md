@@ -1,2 +1,2 @@
 # VIPERBot
-**Make sure to use Node v16 (`npm install node@16`)**
+**Make sure to use run `>bash shell/nvm.sh` before trying to launch the bot.**
