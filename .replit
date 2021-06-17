@@ -1,0 +1,1 @@
+run="bash shell/run.sh #npx node@16 index.js"
