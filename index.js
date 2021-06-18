@@ -2,6 +2,8 @@ import VIPERBot from './viperbot.js'
 import * as Util from './viperbot/util.js'
 
 import * as Moderation from './viperbot/commands/moderation.js'
+import * as Diagnostics from './viperbot/commands/diagnostics.js'
+import * as Audio from './viperbot/commands/audio.js'
 
 const bot = new VIPERBot('!', {
 
@@ -26,16 +28,8 @@ const bot = new VIPERBot('!', {
     message.channel.send(`Kicked ${user}${(args[1] && ' (' + args[1] + ')') ?? ''}.`)
   },*/
   ...Moderation,
-
-  status: ({message}) => message.channel.send(Util.randomItem([
-    'All systems go!',
-    'Ready to roll!',
-    'Standing by...',
-    'Ready to make some trouble!',
-    'What do you want?!',
-    'Yaaawn...',
-    'Here. Obviously.'
-  ]))
+  ...Diagnostics,
+  ...Audio,
 
 
 }).login(process.env['BOT_TOKEN'])

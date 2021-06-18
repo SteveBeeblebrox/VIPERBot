@@ -4,10 +4,12 @@ export default class VIPERBot {
   #prefix
   #commands
   #client
+  #upSince
   constructor(prefix, commands) {
     this.#client = new Discord.Client();
     this.#prefix = prefix
     this.#commands = commands
+    this.#upSince = new Date()
 
     this.#client.on('message', (message) => {
       if(message.author.bot) return
@@ -17,12 +19,13 @@ export default class VIPERBot {
       let contents = this.#breakCommand(message.content.substr(this.#prefix.length))
 
       try {
-        if(contents[0] in this.#commands)
+        if(this.#commands.hasOwnProperty(contents[0]))
           this.#commands[contents[0]]({
             message: message,
             args: contents.splice(1),
             self: contents[0],
-            client: this.#client
+            client: this.#client,
+            bot: this
           })
         else throw `Unknown command \`${contents[0]}\` (Note that commands are case sensitive).`
       } catch (error) {
@@ -55,8 +58,12 @@ export default class VIPERBot {
     return this.getPrefix()
   }
 
-  getPrefix() {
-    return this.#prefix
+  get upSince() {
+    return this.#upSince
+  }
+
+  get commands() {
+    return this.#commands
   }
 
   login(token) {

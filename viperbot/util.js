@@ -13,6 +13,11 @@ export function assertArgCountAtLeast(args, count, command = undefined) {
     throw `Expected at least ${count} argument(s)${(command && ' for command `' + command + '`') ?? ''}, got ${args.length}.`
 }
 
+export function assertArgCountBetween(args, min, max, command = undefined) {
+  if(args.length < min || args.length > max)
+    throw `Expected ${min}-${max} arguments${(command && ' for command `' + command + '`') ?? ''}, got ${args.length}.`
+}
+
 export function asNumber(value, command = undefined) {
   let number = parseInt(value, 10)
   if(isNaN(number))
@@ -28,4 +33,12 @@ export function asUser(client, mention, command = undefined) {
 
 export function randomItem(array) {
   return array[Math.floor(Math.random() * array.length)]
+}
+
+export function clamp(number, min, max) {
+  return Math.min(Math.max(number, min), max);
+}
+
+export function aliasFor(command) {
+  return data => data.bot.commands[command](data)
 }
