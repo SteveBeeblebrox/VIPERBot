@@ -11,6 +11,8 @@ export default class VIPERBot {
     this.#commands = commands
     this.#upSince = new Date()
 
+    this.#commands['github'] = ({message}) => message.channel.send('VIPERBot GitHub: https://github.com/SteveBeeblebrox/VIPERBot')
+
     this.#client.on('message', (message) => {
       if(message.author.bot) return
 
