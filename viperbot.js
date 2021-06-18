@@ -1,4 +1,5 @@
 import * as Discord from 'discord.js'
+import * as Util from './viperbot/util.js'
 
 export default class VIPERBot {
   #prefix
@@ -38,6 +39,17 @@ export default class VIPERBot {
 
     this.#client.on('ready', () => {
       this.#client.user.setActivity(`${this.#client.guilds.cache.size} Server${this.#client.guilds.cache.size > 1 && 's' || ''}`, { type: 'WATCHING' }).catch(console.error);
+
+      this.#client.user.setAvatar('./assets/avatar.png')
+
+      const username = this.#client.user.username
+
+      this.#commands[username] ??= Util.aliasFor('help')
+      this.#commands[username.toLowerCase()] ??= Util.aliasFor('help')
+      this.#commands['help'] ??= Util.respond(`Hi, I\'m ${username}.`)
+
+      this.#client.guilds.cache.forEach(guild =>
+        guild.member(this.#client.user).setNickname(this.#prefix + username))
     })
 
   }
@@ -57,7 +69,7 @@ export default class VIPERBot {
   }
 
   get prefix() {
-    return this.getPrefix()
+    return this.#prefix
   }
 
   get upSince() {

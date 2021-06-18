@@ -42,3 +42,7 @@ export function clamp(number, min, max) {
 export function aliasFor(command) {
   return data => data.bot.commands[command](data)
 }
+
+export function respond(response) {
+  return data => data.message.channel.send(response)
+}
