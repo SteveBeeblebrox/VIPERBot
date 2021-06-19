@@ -12,9 +12,16 @@ export const play = async ({message, client, args, self}) => {
 		const connection = await message.member.voice.channel.join();
     const source = args[0]
 
-    const dispatcher = source.endsWith('.mp3') ? connection.play(source) : connection.play(ytdl(source, {
+    const bitrate = 96*1000
+
+    const dispatcher = source.endsWith('.mp3') ? connection.play(source, {
+      bitrate
+    }) : connection.play(ytdl(source, {
       filter: 'audioonly'
-    }))//('https://stevebeeblebrox.github.io/assets/audio/CrystalForest.mp3');
+    }), {
+      bitrate
+    })//('https://stevebeeblebrox.github.io/assets/audio/CrystalForest.mp3');
+
     dispatcher.on('start', () => {
       console.log('Playing audio');
     });
