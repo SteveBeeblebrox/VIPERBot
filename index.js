@@ -32,4 +32,4 @@ const bot = new VIPERBot('!', {
   ...Audio,
 
 
-}).login(process.env['BOT_TOKEN'])
+}, '#2ecc71').login(process.env['BOT_TOKEN'])
