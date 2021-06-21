@@ -5,7 +5,7 @@ import * as Moderation from './viperbot/commands/moderation.js'
 import * as Diagnostics from './viperbot/commands/diagnostics.js'
 import * as Audio from './viperbot/commands/audio.js'
 
-const bot = new VIPERBot('!', {
+const bot = new VIPERBot('!', 'VIPERBot', {
 
   echo: ({message, self}) => message.channel.send(message.content.substr(bot.prefix.length + self.length + 1)),
 

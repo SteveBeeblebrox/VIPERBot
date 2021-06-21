@@ -5,13 +5,15 @@ import express from 'express'
 
 export default class VIPERBot {
   #prefix
+  #username
   #commands
   #client
   #upSince
   #color
-  constructor(prefix, commands, color) {
+  constructor(prefix, name, commands, color) {
     this.#client = new Discord.Client();
     this.#prefix = prefix
+    this.#username = name
     this.#commands = commands
     this.#upSince = new Date()
     this.#color = color
