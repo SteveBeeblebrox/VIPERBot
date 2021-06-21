@@ -6,12 +6,13 @@ export const index = ({prefix, name, color, servers}) => `
     <meta charset="UTF-8" />
     <style>
       :root {
-         --theme-primary: ${color};
-         --theme-gray: #36393f;
-         --theme-light-gray: #8E9297;
+        --theme-black: black; 
+        --theme-primary: ${color};
+        --theme-gray: #36393f;
+        --theme-light-gray: #8E9297;
       }
       body {
-        background-color: var(--theme-gray);
+        background-color: var(--theme-black);
         font-family: Arial, sans-serif;
       }
       .theme-primary {
