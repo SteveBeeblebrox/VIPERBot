@@ -5,9 +5,9 @@ import * as Moderation from './viperbot/commands/moderation.js'
 import * as Diagnostics from './viperbot/commands/diagnostics.js'
 import * as Audio from './viperbot/commands/audio.js'
 
-const bot = new VIPERBot('!', 'VIPERBot', {
+const bot = new VIPERBot('!', 'VIPER', {
 
-  echo: ({message, self}) => message.channel.send(message.content.substr(bot.prefix.length + self.length + 1)),
+  echo: ({message, self}) => message.channel.send(message.content.substr(bot.prefix.length + self.length + 1) || ':)'),
 
   /*purge: ({message, args, self}) => {
     Util.assertPermission(message.member, 'MANAGE_MESSAGES', self)

@@ -10,10 +10,10 @@ export default class VIPERBot {
   #client
   #upSince
   #color
-  constructor(prefix, name, commands, color) {
+  constructor(prefix, username, commands, color) {
     this.#client = new Discord.Client();
     this.#prefix = prefix
-    this.#username = name
+    this.#username = username
     this.#commands = commands
     this.#upSince = new Date()
     this.#color = color
@@ -46,7 +46,9 @@ export default class VIPERBot {
     this.#client.on('ready', () => {
       this.#client.user.setActivity(`${this.#client.guilds.cache.size} Server${this.#client.guilds.cache.size > 1 && 's' || ''}`, { type: 'WATCHING' }).catch(console.error);
 
-      this.#client.user.setAvatar('./assets/avatar.png').catch(console.error)
+      this.#updateAvatar()
+      this.#updateUsername()
+      
       const username = this.#client.user.username
 
       this.#commands[username] ??= Util.aliasFor('help')
@@ -73,13 +75,31 @@ export default class VIPERBot {
     })
   }
 
+  #updateAvatar() {
+    this.#client.user.setAvatar('./assets/avatar.png').catch(() => {
+      console.error("Unable to update avatar. Retry scheduled in 10 minutes.")
+      setTimeout(this.#updateAvatar.bind(this), 10*60*1000)
+    })
+  }
+
+  #updateUsername() {
+    this.#client.user.setUsername(this.#username).catch(() => {
+      console.error("Unable to update username. Retry scheduled in 10 minutes.")
+      setTimeout(this.#updateUsername.bind(this), 10*60*1000)
+    })
+  }
+
   #open(port) {
-    const site = express();
+    const site = express()
+
+    site.use(express.static('assets'))
+    
     site.get('/', (request, response) => {
       response.send(Views.index({
         prefix: this.#prefix,
-        name: this.#client.user.username,
-        color: this.#color
+        name: this.#client?.user?.username ?? this.#username,
+        color: this.#color,
+        servers: this.#client.guilds.cache.size
       }))
     })
 
