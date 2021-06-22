@@ -53,7 +53,7 @@ export default class VIPERBot {
 
       this.#commands[username] ??= Util.aliasFor('help')
       this.#commands[username.toLowerCase()] ??= Util.aliasFor('help')
-      this.#commands['help'] ??= Util.respond(`Hi, I\'m ${username}.`)
+      this.#commands['help'] ??= Util.respond(`Hi, I\'m ${username}. https://viperbot.repl.co/`)
 
       this.#client.guilds.cache.forEach(guild => {
         guild.member(this.#client.user).setNickname(this.#prefix + username).catch(console.error)
