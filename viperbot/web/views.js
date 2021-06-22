@@ -18,6 +18,7 @@ export const index = ({prefix, name, color, servers}) => `
       }
       body {
         background-color: var(--theme-black);
+        background: radial-gradient(at 50% 100%, var(--theme-primary) -1000%, var(--theme-black));
         font-family: 'Montserrat', Arial, sans-serif;
         user-select: none;
       }
@@ -164,12 +165,12 @@ export const index = ({prefix, name, color, servers}) => `
         0%{
           transform: translateY(0) rotate(0deg);
           opacity: 1;
-          border-radius: 0;
+          border-radius: 10%;
         }
         100%{
           transform: translateY(-1000px) rotate(720deg);
           opacity: 0;
-          border-radius: 50%;
+          border-radius: 15%;
         }
       }
       .back {
